@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header'a denk gelmemesi için bölüm başlıklarına boşluk */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-anthracite text-slate-200 antialiased;
+  }
+
+  /* Bölüm geçişlerinde başlık hizalaması */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Bölüm üst başlığı (küçük turuncu etiket) */
+  .eyebrow {
+    @apply mb-3 inline-block text-sm font-semibold uppercase tracking-widest text-ember;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold tracking-tight text-white sm:text-4xl;
+  }
+
+  /* WhatsApp birincil buton */
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-whatsapp px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-whatsapp/20 transition-all hover:bg-whatsapp-dark hover:shadow-whatsapp/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-whatsapp focus-visible:ring-offset-2 focus-visible:ring-offset-anthracite;
+  }
+
+  /* Turuncu vurgu buton */
+  .btn-ember {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ember px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-ember/20 transition-all hover:bg-ember-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 focus-visible:ring-offset-anthracite;
+  }
+
+  /* İkincil / dış çizgili buton */
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-steel-light bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40;
+  }
+
+  /* Yasal / metin ağırlıklı sayfa biçimlendirmesi */
+  .legal-prose h2 {
+    @apply mt-8 text-xl font-bold text-white;
+  }
+  .legal-prose h3 {
+    @apply mt-6 text-base font-semibold text-slate-200;
+  }
+  .legal-prose p {
+    @apply leading-relaxed;
+  }
+  .legal-prose ul {
+    @apply list-disc space-y-2 pl-5;
+  }
+  .legal-prose a {
+    @apply text-ember underline-offset-2 hover:underline;
+  }
+  .legal-prose strong {
+    @apply text-slate-200;
+  }
+}
