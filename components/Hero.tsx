@@ -1,10 +1,10 @@
-import { ArrowRight, Phone, Truck, Scale, BadgePercent, ChevronDown } from "lucide-react";
+import { ArrowRight, Phone, Truck, Scale, Recycle, ChevronDown } from "lucide-react";
 import { site, telLink } from "@/lib/site";
 import WhatsAppButton from "./WhatsAppButton";
 
 const stats = [
   { icon: Scale, label: "Hassas ve Şeffaf Tartı" },
-  { icon: BadgePercent, label: "Güncel Piyasa Fiyatı" },
+  { icon: Recycle, label: "Lisanslı Geri Dönüşüm" },
   { icon: Truck, label: "Yerinde Söküm & Nakliye" },
 ];
 

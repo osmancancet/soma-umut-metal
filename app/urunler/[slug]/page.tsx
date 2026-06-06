@@ -61,7 +61,7 @@ export default function ProductDetailPage({
 
   const category = getCategory(product.category);
   const related = getRelatedProducts(product);
-  const { icon: Icon, gradient, accent } = getProductVisual(product);
+  const { icon: Icon, accent } = getProductVisual(product);
 
   return (
     <div className="bg-anthracite pt-24 lg:pt-32">
@@ -83,80 +83,70 @@ export default function ProductDetailPage({
           ]}
         />
 
-        <div className="mt-8 grid items-center gap-10 lg:grid-cols-2">
-          {/* İkonlu görsel panel */}
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-steel/40 to-anthracite">
-            <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
-            <div className="bg-grid absolute inset-0 opacity-40" />
-            <div className="absolute -right-16 -top-16 h-56 w-56 animate-blob rounded-full bg-ember/20 blur-3xl" />
-            <Icon
-              className={`absolute -bottom-10 -right-8 h-64 w-64 ${accent} opacity-10`}
-              strokeWidth={1}
-            />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-3xl border border-white/10 bg-anthracite/60 text-ember shadow-2xl backdrop-blur-sm">
-                <Icon className="h-14 w-14" strokeWidth={1.5} />
-              </div>
+        <div className="mt-8 max-w-3xl">
+          {/* İkon rozeti + kategori */}
+          <div className="flex items-center gap-4">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-ember/10 text-ember shadow-lg">
+              <Icon className="h-8 w-8" strokeWidth={1.75} />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
               {category && (
                 <span className={`text-sm font-semibold uppercase tracking-widest ${accent}`}>
                   {category.name}
                 </span>
               )}
+              {product.featured && (
+                <span className="rounded-full bg-ember/15 px-3 py-1 text-xs font-semibold text-ember-light">
+                  Öne Çıkan
+                </span>
+              )}
             </div>
-            {product.featured && (
-              <span className="absolute left-4 top-4 rounded-full bg-ember px-3 py-1 text-xs font-semibold text-white shadow-lg">
-                Öne Çıkan
-              </span>
-            )}
           </div>
 
-          {/* Bilgi */}
-          <div>
-            <h1 className="text-3xl font-black tracking-tight text-white text-balance sm:text-4xl">
-              {product.name}
-            </h1>
-            <p className="mt-4 leading-relaxed text-slate-300 text-pretty">
-              {product.description}
-            </p>
+          <h1 className="mt-6 text-3xl font-black tracking-tight text-white text-balance sm:text-4xl">
+            {product.name}
+          </h1>
+          <p className="mt-4 leading-relaxed text-slate-300 text-pretty">
+            {product.description}
+          </p>
 
-            {product.tags && product.tags.length > 0 && (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {product.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-200"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
-              {sellPoints.map((point) => (
-                <li key={point} className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-ember" />
-                  <span className="text-sm text-slate-300">{point}</span>
-                </li>
+          {product.tags && product.tags.length > 0 && (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {product.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-200"
+                >
+                  {tag}
+                </span>
               ))}
-            </ul>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <WhatsAppButton
-                productName={product.name}
-                label="WhatsApp'tan Teklif Al"
-              />
-              <a href={telLink} className="btn-outline">
-                <Phone className="h-4 w-4" />
-                {site.phoneDisplay}
-              </a>
             </div>
+          )}
 
-            <p className="mt-4 text-xs text-slate-500">
-              {product.name} için güncel fiyat piyasaya göre değişir; kesin
-              teklif WhatsApp veya telefon ile verilir.
-            </p>
+          <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+            {sellPoints.map((point) => (
+              <li key={point} className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-ember" />
+                <span className="text-sm text-slate-300">{point}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <WhatsAppButton
+              productName={product.name}
+              label="WhatsApp'tan Teklif Al"
+            />
+            <a href={telLink} className="btn-outline">
+              <Phone className="h-4 w-4" />
+              {site.phoneDisplay}
+            </a>
           </div>
+
+          <p className="mt-4 text-xs text-slate-500">
+            {product.name} için güncel fiyat piyasaya göre değişir; kesin teklif
+            WhatsApp veya telefon ile verilir.
+          </p>
         </div>
 
         {/* İlgili ürünler */}
