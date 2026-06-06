@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import { Boxes, Phone, CheckCircle2, ArrowRight } from "lucide-react";
+import { Phone, CheckCircle2, ArrowRight } from "lucide-react";
 import {
   products,
   getProductBySlug,
   getRelatedProducts,
   getCategory,
 } from "@/data/products";
+import { getProductVisual } from "@/lib/productVisuals";
 import { site, telLink } from "@/lib/site";
 import { productJsonLd } from "@/lib/jsonld";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductCard from "@/components/ProductCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Reveal from "@/components/Reveal";
 
 // Tüm ürünleri build anında statik üret (SEO + hız)
 export function generateStaticParams() {
@@ -39,7 +40,6 @@ export function generateMetadata({
       title: `${product.name} | ${site.name}`,
       description,
       url: `${site.url}/urunler/${product.id}`,
-      ...(product.image ? { images: [{ url: product.image }] } : {}),
     },
   };
 }
@@ -61,6 +61,7 @@ export default function ProductDetailPage({
 
   const category = getCategory(product.category);
   const related = getRelatedProducts(product);
+  const { icon: Icon, gradient, accent } = getProductVisual(product);
 
   return (
     <div className="bg-anthracite pt-24 lg:pt-32">
@@ -77,30 +78,31 @@ export default function ProductDetailPage({
           items={[
             { name: "Ana Sayfa", href: "/" },
             { name: "Ürünler", href: "/#urunler" },
-            ...(category
-              ? [{ name: category.name, href: "/#urunler" }]
-              : []),
+            ...(category ? [{ name: category.name, href: "/#urunler" }] : []),
             { name: product.name },
           ]}
         />
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-2">
-          {/* Görsel */}
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-steel to-anthracite">
-            {product.image ? (
-              <Image
-                src={product.image}
-                alt={`${product.name} - Soma hurda alımı`}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-                priority
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center">
-                <Boxes className="h-24 w-24 text-white/20" />
+        <div className="mt-8 grid items-center gap-10 lg:grid-cols-2">
+          {/* İkonlu görsel panel */}
+          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-steel/40 to-anthracite">
+            <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+            <div className="bg-grid absolute inset-0 opacity-40" />
+            <div className="absolute -right-16 -top-16 h-56 w-56 animate-blob rounded-full bg-ember/20 blur-3xl" />
+            <Icon
+              className={`absolute -bottom-10 -right-8 h-64 w-64 ${accent} opacity-10`}
+              strokeWidth={1}
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+              <div className="flex h-28 w-28 items-center justify-center rounded-3xl border border-white/10 bg-anthracite/60 text-ember shadow-2xl backdrop-blur-sm">
+                <Icon className="h-14 w-14" strokeWidth={1.5} />
               </div>
-            )}
+              {category && (
+                <span className={`text-sm font-semibold uppercase tracking-widest ${accent}`}>
+                  {category.name}
+                </span>
+              )}
+            </div>
             {product.featured && (
               <span className="absolute left-4 top-4 rounded-full bg-ember px-3 py-1 text-xs font-semibold text-white shadow-lg">
                 Öne Çıkan
@@ -110,15 +112,10 @@ export default function ProductDetailPage({
 
           {/* Bilgi */}
           <div>
-            {category && (
-              <span className="text-sm font-semibold uppercase tracking-widest text-ember">
-                {category.name}
-              </span>
-            )}
-            <h1 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
+            <h1 className="text-3xl font-black tracking-tight text-white text-balance sm:text-4xl">
               {product.name}
             </h1>
-            <p className="mt-4 leading-relaxed text-slate-300">
+            <p className="mt-4 leading-relaxed text-slate-300 text-pretty">
               {product.description}
             </p>
 
@@ -166,9 +163,7 @@ export default function ProductDetailPage({
         {related.length > 0 && (
           <div className="mt-20">
             <div className="flex items-end justify-between">
-              <h2 className="text-2xl font-bold text-white">
-                Benzer Malzemeler
-              </h2>
+              <h2 className="text-2xl font-bold text-white">Benzer Malzemeler</h2>
               <Link
                 href="/#urunler"
                 className="inline-flex items-center gap-1 text-sm font-medium text-ember hover:text-ember-light"
@@ -178,8 +173,10 @@ export default function ProductDetailPage({
               </Link>
             </div>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {related.map((p) => (
-                <ProductCard key={p.id} product={p} />
+              {related.map((p, i) => (
+                <Reveal key={p.id} delay={i * 80}>
+                  <ProductCard product={p} />
+                </Reveal>
               ))}
             </div>
           </div>

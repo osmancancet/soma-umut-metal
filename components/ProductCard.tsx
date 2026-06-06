@@ -1,43 +1,52 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Boxes, ArrowRight } from "lucide-react";
-import type { Product } from "@/data/products";
+import { ArrowRight } from "lucide-react";
+import { type Product, getCategory } from "@/data/products";
+import { getProductVisual } from "@/lib/productVisuals";
 import WhatsAppButton from "./WhatsAppButton";
 
 /**
- * Tek bir ürün kartı (Server Component).
- * - Görsel/başlık, ürün detay sayfasına (/urunler/[slug]) link verir.
- * - Görsel yoksa ikon + degrade placeholder gösterilir (site bozulmaz).
+ * Ürün kartı (Server Component) — fotoğraf yerine ürüne özel ikon + degrade.
+ * - Başlık/medya, ürün detay sayfasına (/urunler/[slug]) link verir.
  * - Her kartta ürüne özel "WhatsApp'tan Teklif Al" butonu bulunur.
  */
 export default function ProductCard({ product }: { product: Product }) {
   const href = `/urunler/${product.id}`;
+  const { icon: Icon, gradient, accent } = getProductVisual(product);
+  const categoryName = getCategory(product.category)?.name;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-anthracite-light transition-all hover:-translate-y-1 hover:border-ember/40 hover:shadow-xl hover:shadow-black/40">
-      {/* Görsel alanı (detay sayfasına link) */}
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-anthracite-light transition-all duration-300 hover:-translate-y-1.5 hover:border-ember/40 hover:shadow-2xl hover:shadow-black/40">
+      {/* İkonlu medya alanı */}
       <Link
         href={href}
-        className="relative block aspect-[4/3] overflow-hidden bg-gradient-to-br from-steel to-anthracite"
         aria-label={`${product.name} detayları`}
+        className="relative block aspect-[16/10] overflow-hidden bg-gradient-to-br from-steel/40 to-anthracite"
       >
-        {product.image ? (
-          <Image
-            src={product.image}
-            alt={`${product.name} - Soma hurda alımı`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <Boxes className="h-16 w-16 text-white/20" />
+        {/* Kategori degradesi */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-70 transition-opacity duration-300 group-hover:opacity-100`}
+        />
+        {/* Izgara dokusu */}
+        <div className="bg-grid absolute inset-0 opacity-40" />
+        {/* Ember parıltısı */}
+        <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-ember/20 blur-3xl transition-all duration-500 group-hover:bg-ember/30" />
+
+        {/* Filigran (büyük arka ikon) */}
+        <Icon
+          className={`absolute -bottom-5 -right-4 h-32 w-32 ${accent} opacity-10 transition-transform duration-500 group-hover:scale-110`}
+          strokeWidth={1.25}
+        />
+
+        {/* Ön plan ikon karosu */}
+        <div className="absolute left-5 top-1/2 -translate-y-1/2">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-anthracite/60 text-ember shadow-lg backdrop-blur-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+            <Icon className="h-8 w-8" strokeWidth={1.75} />
           </div>
-        )}
+        </div>
 
         {/* Öne çıkan rozeti */}
         {product.featured && (
-          <span className="absolute left-3 top-3 rounded-full bg-ember px-3 py-1 text-xs font-semibold text-white shadow-lg">
+          <span className="absolute right-3 top-3 rounded-full bg-ember px-3 py-1 text-xs font-semibold text-white shadow-lg">
             Öne Çıkan
           </span>
         )}
@@ -59,7 +68,12 @@ export default function ProductCard({ product }: { product: Product }) {
 
       {/* İçerik */}
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-lg font-semibold text-white">
+        {categoryName && (
+          <span className={`text-xs font-semibold uppercase tracking-wider ${accent}`}>
+            {categoryName}
+          </span>
+        )}
+        <h3 className="mt-1 text-lg font-semibold text-white">
           <Link href={href} className="transition-colors hover:text-ember">
             {product.name}
           </Link>
@@ -70,10 +84,10 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <Link
           href={href}
-          className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-ember transition-colors hover:text-ember-light"
+          className="group/link mt-3 inline-flex items-center gap-1 text-sm font-medium text-ember transition-colors hover:text-ember-light"
         >
           Detayları Gör
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
         </Link>
 
         <div className="mt-4">

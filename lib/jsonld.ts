@@ -131,7 +131,7 @@ export function productJsonLd(product: Product) {
     name: product.name,
     description: product.description,
     ...(category ? { category: category.name } : {}),
-    ...(product.image ? { image: `${site.url}${product.image}` } : {}),
+    image: `${site.url}/opengraph-image`,
     brand: { "@type": "Brand", name: site.name },
     url: `${site.url}/urunler/${product.id}`,
     offers: {

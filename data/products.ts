@@ -8,9 +8,8 @@
  * NOT: Aşağıdaki ürünler sektöre uygun TAHMİNİ/örnek katalogdur.
  * İşletmenin gerçekte aldığı malzemelere göre ekleme/çıkarma yapın.
  *
- * Görseller: /public/images/products/ altına ürünün `image` yoluyla
- * eklenir. Henüz görsel yoksa bileşen otomatik bir placeholder
- * (ikon + degrade) gösterir.
+ * Kartlarda fotoğraf yerine ürüne özel ikon + degrade kullanılır
+ * (bkz. lib/productVisuals.ts). Ayrıca görsel yönetimi gerekmez.
  */
 
 export type ProductCategory =
@@ -32,8 +31,6 @@ export interface Product {
   description: string;
   /** Kart üzerinde gösterilecek kısa etiketler (ör. "Yüksek Alım") */
   tags?: string[];
-  /** /public/images/products/... yolu. Yoksa placeholder gösterilir. */
-  image?: string;
   /** true ise ana sayfada "Öne Çıkan" rozetiyle vurgulanır. */
   featured?: boolean;
 }
@@ -74,7 +71,6 @@ export const products: Product[] = [
     description:
       "Kızıl bakır, levha ve boru bakırı dahil her türlü bakır hurdası. Soma'nın en yüksek hurda bakır alım fiyatları.",
     tags: ["Yüksek Alım", "Günlük Fiyat"],
-    image: "/images/products/bakir.jpg",
     featured: true,
   },
   {
@@ -84,7 +80,6 @@ export const products: Product[] = [
     description:
       "Sıyrılmış kablo bakırı, motor ve trafo bobini bakırı. Saflık oranına göre en doğru fiyatlandırma.",
     tags: ["Yüksek Alım"],
-    image: "/images/products/kablo-bakiri.jpg",
   },
   {
     id: "aluminyum-hurdasi",
@@ -93,7 +88,6 @@ export const products: Product[] = [
     description:
       "Hurda alüminyum levha, kutu ve karışık alüminyum alımı. Sanayi ve hane fazlası için anında değerlendirme.",
     tags: ["Günlük Fiyat"],
-    image: "/images/products/aluminyum.jpg",
     featured: true,
   },
   {
@@ -103,7 +97,6 @@ export const products: Product[] = [
     description:
       "Pencere/cephe profili, döküm ve talaş alüminyum. Temiz profil için ayrı, yüksek fiyat.",
     tags: ["Hassas Tartı"],
-    image: "/images/products/aluminyum-profil.jpg",
   },
   {
     id: "pirinc-hurdasi",
@@ -112,7 +105,6 @@ export const products: Product[] = [
     description:
       "Sarı pirinç, kırpıntı, musluk ve döküm pirinç malzeme alımı. Şeffaf tartı, güncel pirinç fiyatı.",
     tags: ["Günlük Fiyat"],
-    image: "/images/products/pirinc.jpg",
   },
   {
     id: "bronz-hurdasi",
@@ -120,7 +112,6 @@ export const products: Product[] = [
     category: "demir-disi",
     description:
       "Bronz yatak, rakor, vana ve sarı döküm parçaları. Alaşıma göre değerinde alım.",
-    image: "/images/products/bronz.jpg",
   },
   {
     id: "kursun-hurdasi",
@@ -129,7 +120,6 @@ export const products: Product[] = [
     description:
       "Kurşun levha, boru ve sanayi kurşunu alımı. Çevreye duyarlı, lisanslı geri dönüşüm süreci.",
     tags: ["Lisanslı Süreç"],
-    image: "/images/products/kursun.jpg",
   },
   {
     id: "hurda-aku",
@@ -138,7 +128,6 @@ export const products: Product[] = [
     description:
       "Araç, jeneratör ve UPS aküleri. Lisanslı toplama ve geri dönüşüm; tonajlı akü alımı yapılır.",
     tags: ["Lisanslı Süreç"],
-    image: "/images/products/aku.jpg",
   },
   {
     id: "cinko-hurdasi",
@@ -146,7 +135,6 @@ export const products: Product[] = [
     category: "demir-disi",
     description:
       "Çinko levha, döküm ve galvaniz kaplama atıkları. Endüstriyel çinko hurdası alımı.",
-    image: "/images/products/cinko.jpg",
   },
   {
     id: "krom-nikel",
@@ -154,7 +142,6 @@ export const products: Product[] = [
     category: "demir-disi",
     description:
       "Krom, nikel ve özel alaşımlı metallerin alımı ve geri dönüşümü. Analize göre fiyatlandırma.",
-    image: "/images/products/krom.jpg",
   },
 
   // ---------------- Demir & Çelik ----------------
@@ -165,7 +152,6 @@ export const products: Product[] = [
     description:
       "Ağır demir, çelik konstrüksiyon ve karışık demir hurdası. Tonajlı alımlarda yerinde söküm ve nakliye.",
     tags: ["Nakliye Dahil", "Tonajlı Alım"],
-    image: "/images/products/demir.jpg",
     featured: true,
   },
   {
@@ -175,7 +161,6 @@ export const products: Product[] = [
     description:
       "İnce/kalın sac, kırpıntı sac ve pres balya sac alımı. Sanayi fireleri için düzenli toplama.",
     tags: ["Tonajlı Alım"],
-    image: "/images/products/sac.jpg",
   },
   {
     id: "celik-talasi",
@@ -183,7 +168,6 @@ export const products: Product[] = [
     category: "demir-celik",
     description:
       "Torna, freze ve işleme talaşı. Yağlı/temiz talaş ayrımıyla doğru fiyatlandırma.",
-    image: "/images/products/talas.jpg",
   },
   {
     id: "dokum-hurdasi",
@@ -192,7 +176,6 @@ export const products: Product[] = [
     description:
       "Motor bloğu, radyatör ve sanayi döküm parçaları dahil pik döküm hurdası alımı.",
     tags: ["Tonajlı Alım"],
-    image: "/images/products/dokum.jpg",
   },
   {
     id: "paslanmaz-celik",
@@ -201,7 +184,6 @@ export const products: Product[] = [
     description:
       "Paslanmaz sac, boru, tank ve mutfak ekipmanı hurdası. Tüm kalitelerde alım, magnet testiyle ayrım.",
     tags: ["Tüm Kaliteler"],
-    image: "/images/products/paslanmaz.jpg",
     featured: true,
   },
   {
@@ -211,7 +193,6 @@ export const products: Product[] = [
     description:
       "Ray, makas ve ağır çelik profil hurdası. Komple söküm ve nakliye dahil tonajlı alım.",
     tags: ["Tonajlı Alım"],
-    image: "/images/products/ray.jpg",
   },
   {
     id: "dkp-galvaniz-sac",
@@ -219,7 +200,6 @@ export const products: Product[] = [
     category: "demir-celik",
     description:
       "Beyaz eşya ve otomotiv kaynaklı DKP sac, galvaniz ve kaplamalı sac hurdası.",
-    image: "/images/products/dkp.jpg",
   },
 
   // ---------------- Kablo & Elektronik ----------------
@@ -230,7 +210,6 @@ export const products: Product[] = [
     description:
       "İnce/kalın enerji, telefon ve veri kabloları. Bakır oranına göre en yüksek kablo hurdası fiyatı.",
     tags: ["Bakır Oranına Göre"],
-    image: "/images/products/kablo.jpg",
     featured: true,
   },
   {
@@ -239,7 +218,6 @@ export const products: Product[] = [
     category: "kablo-elektronik",
     description:
       "Hurda elektrik motorları, pompa, kompresör ve jeneratör alımı. Bakır bobin içeriğiyle değerlendirilir.",
-    image: "/images/products/motor.jpg",
   },
   {
     id: "trafo-hurdasi",
@@ -247,7 +225,6 @@ export const products: Product[] = [
     category: "kablo-elektronik",
     description:
       "Kuru tip ve yağlı tip trafo hurdası. Bakır/alüminyum sargı içeriğine göre alım.",
-    image: "/images/products/trafo.jpg",
   },
   {
     id: "elektronik-hurda",
@@ -255,7 +232,6 @@ export const products: Product[] = [
     category: "kablo-elektronik",
     description:
       "Anakart, devre kartı, sunucu ve telekom ekipmanı. Değerli metal içeriğine göre fiyatlandırma.",
-    image: "/images/products/elektronik.jpg",
   },
   {
     id: "beyaz-esya-klima",
@@ -264,7 +240,6 @@ export const products: Product[] = [
     description:
       "Buzdolabı, çamaşır makinesi, klima ve diğer beyaz eşya hurdası. Yerinden toplama yapılır.",
     tags: ["Yerinden Alım"],
-    image: "/images/products/beyaz-esya.jpg",
   },
 
   // ---------------- İkinci El & Hurda Malzeme ----------------
@@ -275,7 +250,6 @@ export const products: Product[] = [
     description:
       "Tekrar kullanılabilir sac levha, kutu profil, NPU/NPI ve sanayi malzemeleri.",
     tags: ["Tekrar Kullanılabilir"],
-    image: "/images/products/sac-profil.jpg",
   },
   {
     id: "celik-konstruksiyon",
@@ -284,7 +258,6 @@ export const products: Product[] = [
     description:
       "Sökülmüş çelik çatı, hangar ve depo konstrüksiyonları. Komple proje alımı yapılır.",
     tags: ["Komple Alım"],
-    image: "/images/products/konstruksiyon.jpg",
   },
   {
     id: "hurda-boru",
@@ -292,7 +265,6 @@ export const products: Product[] = [
     category: "ikinci-el",
     description:
       "Sanayi borusu, su/gaz borusu ve hurda boru alımı. İkinci el ve hurda olarak değerlendirilir.",
-    image: "/images/products/boru.jpg",
   },
   {
     id: "hurda-arac",
@@ -301,7 +273,6 @@ export const products: Product[] = [
     description:
       "Hurdaya çıkan araç, kasa ve karoseri alımı. MTV/hurda belgesi süreçlerinde yardımcı oluyoruz.",
     tags: ["Belge Desteği"],
-    image: "/images/products/arac.jpg",
   },
   {
     id: "makine-techizat",
@@ -309,7 +280,6 @@ export const products: Product[] = [
     category: "ikinci-el",
     description:
       "Atıl tezgah, makine ve sanayi teçhizatı. İkinci el veya hurda olarak yerinde değerlendirme.",
-    image: "/images/products/makine.jpg",
   },
 ];
 

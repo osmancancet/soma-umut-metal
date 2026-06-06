@@ -1,6 +1,7 @@
 import { galleryItems } from "@/data/gallery";
 import { site } from "@/lib/site";
 import Gallery from "./Gallery";
+import Reveal from "./Reveal";
 
 /**
  * Galeri bölümü (#galeri, Server Component).
@@ -29,14 +30,14 @@ export default function GallerySection() {
       )}
 
       <div className="container-site">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Galeri</span>
-          <h2 className="section-title">Tesisimizden Kareler</h2>
-          <p className="mt-4 text-slate-400">
+          <h2 className="section-title text-balance">Tesisimizden Kareler</h2>
+          <p className="mt-4 text-slate-400 text-pretty">
             Stok sahamız, kantarımız ve geri dönüşüm sürecimizden görüntüler.
             Drone çekimleri ve fotoğraflar yakında burada.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-12">
           <Gallery items={galleryItems} />

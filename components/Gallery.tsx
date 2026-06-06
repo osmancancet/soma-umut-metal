@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { ImageIcon, X, ChevronLeft, ChevronRight } from "lucide-react";
 import type { GalleryItem } from "@/data/gallery";
+import Reveal from "./Reveal";
 
 /**
  * Görsel galeri ızgarası + lightbox (Client Component).
@@ -54,8 +55,8 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
             : -1;
 
           return (
+            <Reveal key={item.caption + i} delay={(i % 4) * 70}>
             <figure
-              key={item.caption + i}
               className="group relative aspect-square overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-steel to-anthracite"
             >
               {item.src ? (
@@ -83,6 +84,7 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
                 {item.caption}
               </figcaption>
             </figure>
+            </Reveal>
           );
         })}
       </div>

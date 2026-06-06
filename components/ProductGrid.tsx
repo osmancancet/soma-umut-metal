@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { products, categories, type ProductCategory } from "@/data/products";
 import ProductCard from "./ProductCard";
 import WhatsAppButton from "./WhatsAppButton";
+import Reveal from "./Reveal";
 
 type Filter = "all" | ProductCategory;
 
@@ -59,8 +60,10 @@ export default function ProductGrid() {
 
         {/* Izgara */}
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {visible.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {visible.map((product, i) => (
+            <Reveal key={product.id} delay={(i % 4) * 70} className="h-full">
+              <ProductCard product={product} />
+            </Reveal>
           ))}
         </div>
 

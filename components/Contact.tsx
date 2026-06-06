@@ -2,6 +2,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { site, telLink, mapsLink } from "@/lib/site";
 import WhatsAppButton from "./WhatsAppButton";
 import QuoteForm from "./QuoteForm";
+import Reveal from "./Reveal";
 
 const items = [
   {
@@ -38,14 +39,14 @@ export default function Contact() {
   return (
     <section id="iletisim" className="bg-anthracite-light py-20 lg:py-28">
       <div className="container-site">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">İletişim</span>
-          <h2 className="section-title">Hemen Teklif Alın</h2>
-          <p className="mt-4 text-slate-400">
+          <h2 className="section-title text-balance">Hemen Teklif Alın</h2>
+          <p className="mt-4 text-slate-400 text-pretty">
             Hurdanızı değerinde nakde çevirmek çok kolay. Aşağıdaki formu
             doldurun, WhatsApp'tan yazın veya bizi telefonla arayın.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-12 grid items-start gap-10 lg:grid-cols-2">
           {/* Sol: bilgiler + hızlı aksiyonlar */}

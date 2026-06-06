@@ -35,17 +35,17 @@
 
   /* WhatsApp birincil buton */
   .btn-whatsapp {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-whatsapp px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-whatsapp/20 transition-all hover:bg-whatsapp-dark hover:shadow-whatsapp/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-whatsapp focus-visible:ring-offset-2 focus-visible:ring-offset-anthracite;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-whatsapp px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-whatsapp/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-whatsapp-dark hover:shadow-xl hover:shadow-whatsapp/30 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-whatsapp focus-visible:ring-offset-2 focus-visible:ring-offset-anthracite;
   }
 
   /* Turuncu vurgu buton */
   .btn-ember {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ember px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-ember/20 transition-all hover:bg-ember-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 focus-visible:ring-offset-anthracite;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ember px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-ember/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-ember-dark hover:shadow-xl hover:shadow-ember/30 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 focus-visible:ring-offset-anthracite;
   }
 
   /* İkincil / dış çizgili buton */
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-steel-light bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-steel-light bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-ember/50 hover:bg-white/10 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40;
   }
 
   /* Yasal / metin ağırlıklı sayfa biçimlendirmesi */
@@ -66,5 +66,56 @@
   }
   .legal-prose strong {
     @apply text-slate-200;
+  }
+}
+
+@layer utilities {
+  /* Endüstriyel ızgara/nokta deseni (Hero arka planı) */
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        rgba(148, 163, 184, 0.07) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  /* Turuncu degrade metin */
+  .text-gradient {
+    @apply bg-gradient-to-r from-ember-light via-ember to-ember-dark bg-clip-text text-transparent;
+  }
+
+  /* Üzerinden geçen parıltı efekti (hover) */
+  .shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .shine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-150%);
+    background: linear-gradient(
+      100deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 70%
+    );
+  }
+  .shine:hover::after {
+    animation: shimmer 1.1s ease-in-out;
+  }
+}
+
+/* Hareket azaltma tercihi olan kullanıcılar için animasyonları kıs */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
