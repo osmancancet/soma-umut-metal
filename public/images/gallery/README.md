@@ -1,6 +1,10 @@
 # Galeri Görselleri
 
-Ana sayfadaki **Galeri** bölümünde gösterilecek fotoğrafları buraya ekleyin.
+Ana sayfadaki **Galeri** bölümü "bento" düzendedir: en büyük/geniş hücrede
+**drone videosu** otomatik oynar (`/public/videos/drone-hero.mp4` — Hero ile
+aynı video), diğer küçük karelerde fotoğraflar yer alır.
+
+Fotoğrafları buraya ekleyin.
 
 ## Nasıl eklenir?
 

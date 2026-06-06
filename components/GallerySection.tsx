@@ -8,7 +8,7 @@ import Reveal from "./Reveal";
  * Gerçek görsel varsa ImageGallery JSON-LD'sini de gömer.
  */
 export default function GallerySection() {
-  const withImage = galleryItems.filter((it) => it.src);
+  const withImage = galleryItems.filter((it) => it.src && it.type !== "video");
 
   const jsonLd =
     withImage.length > 0
@@ -34,8 +34,8 @@ export default function GallerySection() {
           <span className="eyebrow">Galeri</span>
           <h2 className="section-title text-balance">Tesisimizden Kareler</h2>
           <p className="mt-4 text-slate-400 text-pretty">
-            Stok sahamız, kantarımız ve geri dönüşüm sürecimizden görüntüler.
-            Drone çekimleri ve fotoğraflar yakında burada.
+            Tesisimizin drone çekimi ile stok sahası, kantar ve geri dönüşüm
+            sürecimizden kareler.
           </p>
         </Reveal>
 

@@ -1,23 +1,34 @@
 /**
- * Galeri görselleri (Statik / Düzenlenebilir).
+ * Galeri öğeleri (Statik / Düzenlenebilir).
  * ------------------------------------------------------------------
- * Görselleri /public/images/gallery/ altına ekleyip `src` alanını
- * doldurun. `src` boş bırakılan öğeler, fotoğraf eklenene kadar
- * etiketli bir placeholder (degrade + başlık) olarak gösterilir;
- * site bozulmaz. Gerçek görsel eklendiğinde otomatik büyütülebilir
- * (lightbox) hale gelir.
+ * Düzen "bento" tarzıdır: `wide: true` olan öğe (genelde drone videosu)
+ * BÜYÜK ve geniş gösterilir; diğerleri küçük karelerdir.
+ *
+ * - Video için: type: "video", src: "/videos/...mp4" (otomatik oynar, sessiz).
+ *   Hero ile aynı drone videosunu kullanır: /public/videos/drone-hero.mp4
+ * - Fotoğraf için: src: "/images/gallery/...jpg" (boşsa etiketli placeholder).
  */
 export interface GalleryItem {
-  /** /images/gallery/... yolu. Boşsa placeholder gösterilir. */
+  /** "image" (varsayılan) veya "video" */
+  type?: "image" | "video";
+  /** Medya yolu. Boşsa fotoğraf placeholder'ı gösterilir. */
   src?: string;
-  /** Erişilebilirlik + SEO için açıklama (zorunlu). */
+  /** Erişilebilirlik + SEO açıklaması (zorunlu). */
   alt: string;
   /** Kart üzerinde görünen kısa başlık. */
   caption: string;
+  /** true ise büyük/geniş hücre (2x2). */
+  wide?: boolean;
 }
 
 export const galleryItems: GalleryItem[] = [
-  { src: "", alt: "Soma Umut Metal tesisi drone çekimi", caption: "Tesisimiz (Drone)" },
+  {
+    type: "video",
+    src: "/videos/drone-hero.mp4",
+    alt: "Soma Umut Metal tesisi drone çekimi",
+    caption: "Drone Çekimi",
+    wide: true,
+  },
   { src: "", alt: "Hurda metal stok sahası", caption: "Stok Sahası" },
   { src: "", alt: "Kalibreli kantar ile hurda tartımı", caption: "Hassas Kantar" },
   { src: "", alt: "Hurda bakır ve demir dışı metaller", caption: "Demir Dışı Metaller" },
